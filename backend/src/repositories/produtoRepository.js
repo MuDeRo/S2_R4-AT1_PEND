@@ -3,12 +3,13 @@ import { connection } from "../configs/Database.js";
 const produtoRepository = {
 
     criar: async (produto) => {
-        const sql = `INSERT INTO produtos (idCategoria, nomeProduto, valor, vinculoImagem) VALUES (?, ?, ?, ?)`;
+        const sql = `INSERT INTO produtos (id_categoria, nome, preco, estoque, imagem) VALUES (?, ?, ?, ?, ?)`;
 
         const valores = [
             produto.idCategoria,
-            produto.nomeProduto,
+            produto.nome,
             produto.valor,
+            produto.estoque,
             produto.vinculoImagem
         ];
 
@@ -17,8 +18,7 @@ const produtoRepository = {
     },
 
     atualizar: async (produto) => {
-        const sql = `UPDATE produtos SET idCategoria = ?, nomeProduto = ?, valor = ?, vinculoImagem = ? WHERE id = ?`;
-
+        const sql = `UPDATE produtos SET id_categoria = ?, nome = ?, preco = ?, estoque = ?, imagem = ? WHERE id = ?`;
         const values = [
             produto.idCategoria,
             produto.nomeProduto,

@@ -1,10 +1,11 @@
 import { Router } from "express";
 import produtoController from "../controllers/produtosControllers.js";
+import uploadImage from "../middlewares/uploadImage.js";
 
 const produtoRoutes = Router();
 
 produtoRoutes.get('/', produtoController.selecionar);
-produtoRoutes.post('/', produtoController.criar);
+produtoRoutes.post('/', uploadImage, produtoController.criar);
 produtoRoutes.put('/:id', produtoController.atualizar);
 produtoRoutes.delete('/:id', produtoController.deletar);
 

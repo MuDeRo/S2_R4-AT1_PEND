@@ -1,23 +1,25 @@
-import { Produto } from "../models/Produtos.js";
+import { Produto } from "../models/Produto.js";
 import produtoRepository from "../repositories/produtoRepository.js";
 
 const produtoController = {
 
     criar: async (req, res) => {
         try {
-            const { idCategoria, nomeProduto, valor } = req.body;
+            const nome = String(req.body.nome);
 
-            const vinculoImagem = req.file ? req.file.path : "";
-            console.log(vinculoImagem)
-            const produto = new Produto(
-                Number(idCategoria),
-                nomeProduto,
-                Number(valor),
-                vinculoImagem
-            );
+            const idCategoria = Number(req.body.idCategoria); // converte o id da categoria recebido na requisição para número
+            const valor = Number(req.body.valor); // converte o preço recebido na requisição para número
+            const caminhoImage = `/uploads/image/${req.file.filename}`;
 
-            const result = await produtoRepository.criar(produto);
-            res.status(201).json({ result });
+            console.log({ idCategoria, nome, valor, caminhoImage });
+
+            const produto = Produto.criar({ idCategoria, nome, valor, caminhoImage }); // utiliza o método estático criar da classe Produto para criar um objeto da classe Produto a partir dos dados recebidos na requisição
+
+            
+            
+
+            const resultado = await produtoRepository.criar(produto);
+            res.status(201).json(resultado);
 
         } catch (error) {
 

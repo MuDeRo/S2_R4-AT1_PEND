@@ -13,9 +13,6 @@ export class Produto {
         this.vinculoImagem = pVinculoImagem;
         this.id = pId;
 
-        if (!pId) {
-            this.#dataCad = new Date();
-        }
     }
 
     get id() {
@@ -63,9 +60,7 @@ export class Produto {
         this.#vinculoImagem = value;
     }
 
-    get dataCad() {
-        return this.#dataCad;
-    }
+   
 
     #validarId(value) {
         if (value !== null && value !== undefined && value <= 0) {
@@ -85,8 +80,9 @@ export class Produto {
         }
     }
 
+
     #validarValor(value) {
-        if (value == null || value <= 0) {
+        if (!value || value < 0) {
             throw new Error('O valor do produto deve ser maior que zero');
         }
     }
@@ -98,10 +94,10 @@ export class Produto {
     }
 
     static criar(dados) {
-        return new Produto(dados.idCategoria, dados.nomeProduto, dados.valor, dados.vinculoImagem, null);
+        return new Produto(dados.idCategoria, dados.nome, dados.valor, dados.caminhoImagem, null);
     }
 
     static editar(dados, id) {
-        return new Produto(dados.idCategoria, dados.nomeProduto, dados.valor, dados.vinculoImagem, id);
+        return new Produto(dados.idCategoria, dados.nome, dados.valor, dados.caminhoImagem, id);
     }
 }
