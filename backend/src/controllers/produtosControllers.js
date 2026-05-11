@@ -9,11 +9,10 @@ const produtoController = {
 
             const idCategoria = Number(req.body.idCategoria); // converte o id da categoria recebido na requisição para número
             const valor = Number(req.body.valor); // converte o preço recebido na requisição para número
-            const caminhoImage = `/uploads/image/${req.file.filename}`;
+            const estoque = Number(req.body.estoque); // converte o estoque recebido na requisição para número
+            const caminhoImagem = `/uploads/image/${req.file.filename}`;
 
-            console.log({ idCategoria, nome, valor, caminhoImage });
-
-            const produto = Produto.criar({ idCategoria, nome, valor, caminhoImage }); // utiliza o método estático criar da classe Produto para criar um objeto da classe Produto a partir dos dados recebidos na requisição
+            const produto = Produto.criar({ idCategoria, nome, valor, estoque, caminhoImagem }); // utiliza o método estático criar da classe Produto para criar um objeto da classe Produto a partir dos dados recebidos na requisição
 
             
             
@@ -34,26 +33,18 @@ const produtoController = {
     atualizar: async (req, res) => {
         try {
             const id = Number(req.params.id);
-            const { nomeProduto, valor, idCategoria } = req.body;
+            const { valor, estoque } = req.body;
 
-            if (isNaN(id) || !nomeProduto) {
+            if (isNaN(id) || valor === undefined || estoque === undefined) {
                 return res.status(400).json({
-                    message: 'Dados inválidos'
+                    message: 'ID, valor e estoque são obrigatórios'
                 });
             }
 
-            const vinculoImagem = req.file ? req.file.path : undefined;
+            const produto = Produto.editar({ valor: Number(valor), estoque: Number(estoque) }, id);
 
-            const produto = Produto.editar({
-                idCategoria: Number(idCategoria),
-                nomeProduto,
-                valor: Number(valor),
-                vinculoImagem
-            }, id);
-
-            const result = await produtoRepository.atualizar(produto);
-
-            res.status(200).json({ result });
+            const resultado = await produtoRepository.editar(produto);
+            return res.status(200).json({ resultado });
 
         } catch (error) {
             console.log(error);
@@ -88,6 +79,21 @@ const produtoController = {
 
             res.status(200).json({ result });
 
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'Ocorreu um erro no servidor',
+                errorMessage: error.message
+            });
+        }
+    },
+
+    selecionarPorId: async (req, res) => {
+        try {
+            const id = Number(req.params.id);
+            const result = await produtoRepository.selecionarPorId(id);
+            res.status(200).json({ result });
+            
         } catch (error) {
             console.log(error);
             res.status(500).json({

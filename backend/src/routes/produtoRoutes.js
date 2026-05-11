@@ -8,5 +8,6 @@ produtoRoutes.get('/', produtoController.selecionar);
 produtoRoutes.post('/', uploadImage, produtoController.criar);
 produtoRoutes.put('/:id', produtoController.atualizar);
 produtoRoutes.delete('/:id', produtoController.deletar);
+produtoRoutes.get('/:id', produtoController.selecionarPorId);
 
 export default produtoRoutes;

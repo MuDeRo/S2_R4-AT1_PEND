@@ -4,13 +4,15 @@ export class Produto {
     #nomeProduto;
     #valor;
     #vinculoImagem;
+    #estoque;
     #dataCad;
 
-    constructor(pIdCategoria, pNomeProduto, pValor, pVinculoImagem, pId) {
+    constructor(pIdCategoria, pNomeProduto, pValor, pVinculoImagem, pEstoque, pId) {
         this.idCategoria = pIdCategoria;
         this.nomeProduto = pNomeProduto;
         this.valor = pValor;
         this.vinculoImagem = pVinculoImagem;
+        this.estoque = pEstoque;
         this.id = pId;
 
     }
@@ -60,7 +62,14 @@ export class Produto {
         this.#vinculoImagem = value;
     }
 
-   
+    get estoque() {
+        return this.#estoque;
+    }
+
+    set estoque(value) {
+        this.#validarEstoque(value);
+        this.#estoque = value;
+    }
 
     #validarId(value) {
         if (value !== null && value !== undefined && value <= 0) {
@@ -69,17 +78,22 @@ export class Produto {
     }
 
     #validarIdCategoria(value) {
-        if (!value || value <= 0) {
-            throw new Error('O idCategoria é obrigatório e deve ser maior que zero');
+        if (value !== undefined && value !== null && value <= 0) {
+            throw new Error('O idCategoria deve ser maior que zero');
         }
     }
 
     #validarNome(value) {
-        if (!value || value.trim().length < 3 || value.trim().length > 150) {
+        if (value !== undefined && (!value || value.trim().length < 3 || value.trim().length > 150)) {
             throw new Error('O nome do produto deve ter entre 3 e 150 caracteres');
         }
     }
 
+    #validarEstoque(value) {
+        if (value === null || value === undefined || !Number.isInteger(value) || value < 0) {
+            throw new Error('O estoque deve ser um número inteiro maior ou igual a zero');
+        }
+    }
 
     #validarValor(value) {
         if (!value || value < 0) {
@@ -94,10 +108,17 @@ export class Produto {
     }
 
     static criar(dados) {
-        return new Produto(dados.idCategoria, dados.nome, dados.valor, dados.caminhoImagem, null);
+        return new Produto(
+            dados.idCategoria,
+            dados.nome ?? dados.nomeProduto,
+            dados.valor,
+            dados.caminhoImagem ?? dados.caminhoImage ?? dados.vinculoImagem,
+            dados.estoque,
+            null
+        );
     }
 
     static editar(dados, id) {
-        return new Produto(dados.idCategoria, dados.nome, dados.valor, dados.caminhoImagem, id);
+        return new Produto(undefined, undefined, dados.valor, undefined, dados.estoque, id);
     }
 }

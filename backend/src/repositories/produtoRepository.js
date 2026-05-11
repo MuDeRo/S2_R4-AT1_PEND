@@ -3,36 +3,17 @@ import { connection } from "../configs/Database.js";
 const produtoRepository = {
 
     criar: async (produto) => {
-        const sql = `INSERT INTO produtos (id_categoria, nome, preco, estoque, imagem) VALUES (?, ?, ?, ?, ?)`;
-
-        const valores = [
-            produto.idCategoria,
-            produto.nome,
-            produto.valor,
-            produto.estoque,
-            produto.vinculoImagem
-        ];
-
-        const [rows] = await connection.execute(sql, valores);
-        return { id: rows.insertId };
+        const sql = 'INSERT INTO produtos (id_categoria, nome, preco, estoque, imagem) VALUES (?,?,?,?,?)';
+        const values = [produto.idCategoria, produto.nomeProduto, produto.valor, produto.estoque, produto.vinculoImagem];
+        const [rows] = await connection.execute(sql, values);
+        return rows;
+    
     },
 
-    atualizar: async (produto) => {
-        const sql = `UPDATE produtos SET id_categoria = ?, nome = ?, preco = ?, estoque = ?, imagem = ? WHERE id = ?`;
-        const values = [
-            produto.idCategoria,
-            produto.nomeProduto,
-            produto.valor,
-            produto.vinculoImagem,
-            produto.id
-        ];
-
+    editar: async (produto) => {
+        const sql = 'UPDATE produtos SET preco = ?, estoque = ? WHERE id = ?';
+        const values = [produto.valor, produto.estoque, produto.id];
         const [rows] = await connection.execute(sql, values);
-
-        if (rows.affectedRows === 0) {
-            throw new Error('Produto não encontrado');
-        }
-
         return rows;
     },
 
@@ -52,6 +33,13 @@ const produtoRepository = {
             throw new Error('Produto não encontrado');
         }
 
+        return rows;
+    },
+
+    selecionarPorId: async (id) => {
+        const sql = 'SELECT * FROM produtos WHERE id = ?';
+        const values = [id];
+        const [rows] = await connection.execute(sql, values);
         return rows;
     }
 
