@@ -1,6 +1,9 @@
-const API_URL = "http://localhost:8081/produtos";
+import {buscarProdutos} from "../../services/produtos/produtos.api.js" 
 
-export async function renderProdutosPage() {
+import criarCardProduto from "../../components/produtos/card.component.js"
+import {criarColuna} from "../../components/shared/coluna-bootstrap.component.js"
+
+export async function produtosPage() {
   const app = document.getElementById("app");
 
   app.innerHTML = `
