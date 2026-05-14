@@ -10,7 +10,7 @@ export default function carrinhoProdutosPage() {
   `;
 
   const row = document.querySelector("#lista-carrinho");
-  const carrinho = listarcarrinho();
+  const carrinho = listarCarrinho();
 
   carrinho.forEach(produto => {
     const coluna = criarColunas();
