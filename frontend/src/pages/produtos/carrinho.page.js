@@ -1,6 +1,6 @@
-import criarCardProduto from "../../components/card.component.js";
+import criarCardProduto from "../../components/produtos/card.component.js";
 import criarColunas from "../../components/shared/coluna-bootstrap.component.js";
-import { listarcarrinho, removerCarrinho } from "../../storage/carrinho.storage.js";
+import { listarcarrinho, removerDoCarrinho } from "../../storage/produtos/carrinho.storage.js";
 
 export default function carrinhoProdutosPage() {
   const app = document.querySelector("#app");
@@ -21,7 +21,7 @@ export default function carrinhoProdutosPage() {
     button.innerText = "Remover do carrinho";
 
     button.addEventListener("click", () => {
-      removerCarrinho(produto);
+      removerDoCarrinho(produto);
       coluna.remove();
     });
 

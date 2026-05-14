@@ -1,4 +1,4 @@
-﻿export function salvarNoCarrinho(produto) {
+export function salvarNoCarrinho(produto) {
     const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
     const jaExiste = carrinho.some(item => item.name === produto.name);
 
