@@ -1,4 +1,7 @@
 import criarImagemProduto from "./imagem.component.js";
+import { criarBotaoCarrinho } from "./botao.component.js";
+
+import {salvarCarrinho,removerCarrinho,ehCarrinho} from "../../storage/produtos/carrinho.storage.js";
 
 export default function criarCardProduto(produto) {
     const card = document.createElement('div');
@@ -10,7 +13,32 @@ export default function criarCardProduto(produto) {
     const image = criarImagemProduto(produto);
     image.classList.add('produto-img');
 
-    imageContainer.appendChild(image);
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'position-absolute top-0 end-0 m-2';
+
+    let carrinho = ehCarrinho(produto);
+
+    if (carrinho) {
+        card.classList.add('carrinho');
+    }
+
+    const button = criarBotaoCarrinho();
+
+    button.addEventListener('click', () => {
+        carrinho = !carrinho;
+
+        card.classList.toggle('carrinho', carrinho);
+
+        if (carrinho) {
+            salvarCarrinho(produto);
+        } else {
+            removerCarrinho(produto);
+        }
+    });
+
+    btnContainer.appendChild(button);
+
+    imageContainer.append(image, btnContainer);
 
     const cardBody = document.createElement('div');
     cardBody.className = 'card-body';
@@ -27,11 +55,7 @@ export default function criarCardProduto(produto) {
     preco.className = 'card-text';
     preco.innerText = `R$ ${produto.price}`;
 
-    const botao = document.createElement('button');
-    botao.className = 'btn btn-primary';
-    botao.innerText = 'Adicionar ao carrinho';
-
-    cardBody.append(categoria, nome, preco, botao);
+    cardBody.append(categoria, nome, preco);
 
     card.append(imageContainer, cardBody);
 
