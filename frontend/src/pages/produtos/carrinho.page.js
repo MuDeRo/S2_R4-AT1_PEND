@@ -1,24 +1,31 @@
-export function salvarNoCarrinho(produto) {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
-    const jaExiste = carrinho.some(item => item.name === produto.name);
+import criarCardProduto from "../../components/card.component.js";
+import criarColunas from "../../components/shared/coluna-bootstrap.component.js";
+import { listarcarrinho, removerCarrinho } from "../../storage/carrinho.storage.js";
 
-    if (!jaExiste) {
-        carrinho.push(produto);
-        localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    }
-}
+export default function carrinhoProdutosPage() {
+  const app = document.querySelector("#app");
+  app.innerHTML = `
+    <h1 class="titulo-pagina text-center">Carrinho</h1>
+    <div class="row mt-4" id="lista-carrinho"></div>
+  `;
 
-export function removerDoCarrinho(produto) {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
-    const carrinhoAtualizado = carrinho.filter(item => item.name !== produto.name);
-    localStorage.setItem('carrinho', JSON.stringify(carrinhoAtualizado));
-}
+  const row = document.querySelector("#lista-carrinho");
+  const carrinho = listarcarrinho();
 
-export function listarCarrinho() {
-    return JSON.parse(localStorage.getItem('carrinho') || '[]');
-}
+  carrinho.forEach(produto => {
+    const coluna = criarColunas();
+    const card = criarCardProduto(produto);
+    const button = card.querySelector("button");
 
-export function estaNoCarrinho(produto) {
-    const carrinho = listarCarrinho();
-    return carrinho.some(item => item.name === produto.name);
+    button.className = "btn-remover w-100 justify-content-center";
+    button.innerText = "Remover do carrinho";
+
+    button.addEventListener("click", () => {
+      removerCarrinho(produto);
+      coluna.remove();
+    });
+
+    coluna.appendChild(card);
+    row.appendChild(coluna);
+  });
 }
