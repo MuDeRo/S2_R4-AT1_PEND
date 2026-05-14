@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const API_URL = 'http://10.87.169.65:8081';
+const DOMAIN = 'localhost';
+const API_URL = `http://${DOMAIN}:8081`;
 
 export async function buscarProdutos() {
     try {
-        const resposta = await axios.get(API_URL);
+        const resposta = await axios.get(`${API_URL}/produtos`);
         return resposta.data;
     } catch (error) {
         console.error("Erro ao buscar personagens:", error); // Imprime um erro no console

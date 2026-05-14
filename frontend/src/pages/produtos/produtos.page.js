@@ -1,7 +1,7 @@
 import {buscarProdutos} from "../../services/produtos/produtos.api.js" 
 
 import criarCardProduto from "../../components/produtos/card.component.js"
-import {criarColuna} from "../../components/shared/coluna-bootstrap.component.js"
+import criarColuna from "../../components/shared/coluna-bootstrap.component.js"
 
 export async function produtosPage() {
   const app = document.getElementById("app");
@@ -15,25 +15,9 @@ export async function produtosPage() {
       </div>
     </section>
   `;
+  const produtos = await buscarProdutos();
 
-  try {
-    const response = await fetch(API_URL);
-
-    if (!response.ok) {
-      throw new Error("Erro ao buscar produtos");
-    }
-
-    const produtos = await response.json();
-
-    renderProdutos(produtos);
-
-  } catch (error) {
-    document.getElementById("products-container").innerHTML = `
-      <p>Erro ao carregar produtos.</p>
-    `;
-
-    console.error(error);
-  }
+  renderProdutos(produtos);
 }
 
 function renderProdutos(produtos) {
@@ -44,16 +28,18 @@ function renderProdutos(produtos) {
     return;
   }
 
+  console.log(produtos);
+
   container.innerHTML = produtos.map(produto => `
     <div class="product-card">
 
       <img
-        src="${produto.imagem}"
-        alt="${produto.titulo}"
+        src="http://localhost:8081${produto.imagem}"
+        alt="${produto.nome}"
         class="product-image"
       />
 
-      <h3>${produto.titulo}</h3>
+      <h3>${produto.nome}</h3>
 
       <p class="price">
         R$ ${Number(produto.preco).toFixed(2)}

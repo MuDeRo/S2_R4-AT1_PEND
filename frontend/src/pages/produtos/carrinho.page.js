@@ -1,6 +1,6 @@
 import criarCardProduto from "../../components/produtos/card.component.js";
 import criarColunas from "../../components/shared/coluna-bootstrap.component.js";
-import { listarcarrinho, removerDoCarrinho } from "../../storage/produtos/carrinho.storage.js";
+import { listarCarrinho, removerDoCarrinho } from "../../storage/produtos/carrinho.storage.js";
 
 export default function carrinhoProdutosPage() {
   const app = document.querySelector("#app");
