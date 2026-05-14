@@ -1,83 +1,24 @@
-javascript
-import criarColuna from '../../components/shared/coluna-bootstrap.component.js';
-import { listarCarrinho } from '../../storage/produtos/carrinho.storage.js';
-import { removerDoCarrinho } from '../../storage/produtos/carrinho.storage.js';
+export function salvarNoCarrinho(produto) {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+    const jaExiste = carrinho.some(item => item.name === produto.name);
 
-
-export async function Carrinho() {
-
-    const app = document.querySelector('#app');
-
-    app.innerHTML = 
-        <><h1 class="fw-bold text-primary"
-        >
-            🛒 Carrinho
-        </h1><div class="row mt-4" id="lista-produtos"></div><h4 class="mt-4" id="total"></h4></>
-    ;
-
-    const row = document.querySelector('#lista-produtos');
-
-    const produtos = listarCarrinho();
-
-    if (produtos.length === 0) {
-
-        row.innerHTML = `
-            <p class="text-secondary">
-                Seu carrinho está vazio.
-            </p>
-        `;
-
-        return;
+    if (!jaExiste) {
+        carrinho.push(produto);
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
     }
+}
 
-    let total = 0;
+export function removerDoCarrinho(produto) {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+    const carrinhoAtualizado = carrinho.filter(item => item.name !== produto.name);
+    localStorage.setItem('carrinho', JSON.stringify(carrinhoAtualizado));
+}
 
-    produtos.forEach(produto => {
+export function listarCarrinho() {
+    return JSON.parse(localStorage.getItem('carrinho') || '[]');
+}
 
-        total += produto.preco;
-
-        const coluna = criarColuna();
-
-        coluna.innerHTML = `
-            <div class="card p-2 h-100">
-
-                <img
-                    src="${produto.imagem}"
-                    class="card-img-top"
-                >
-
-                <div class="card-body">
-
-                    <h5>
-                        ${produto.titulo}
-                    </h5>
-
-                    <p>
-                        R$ ${produto.preco.toFixed(2)}
-                    </p>
-
-                    <button class="btn btn-danger">
-                     Remover
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-
-        const button = coluna.querySelector('button');
-
-        button.addEventListener('click', () => {
-
-            removerDoCarrinho(produto.id);
-
-            coluna.remove();
-        });
-
-        row.appendChild(coluna);
-    });
-
-    document.querySelector('#total').innerHTML = `
-        Total: R$ ${total.toFixed(2)}
-    `;
+export function estaNoCarrinho(produto) {
+    const carrinho = listarCarrinho();
+    return carrinho.some(item => item.name === produto.name);
 }
