@@ -106,7 +106,7 @@ const pedidoController = {
 
             const pedidoAtualizado = { id: resultPedido.id, valorTotal: (Number(resultPedido.valor_total) + Number(diferenca)), status: resultPedido.status };
 
-            const itensPedidoAtualizados = { ...resultItem, quantidade };
+            const itensPedidoAtualizados = { ...resultItem, quantidade }; //cria um novo objeto com as mesmas propriedades do item do pedido recuperado, mas com a quantidade atualizada
 
             const resultado = await pedidoRepository.editarQuantidade(pedidoAtualizado, itensPedidoAtualizados, idItem);
 

@@ -34,10 +34,10 @@ function renderProdutos(produtos) {
     <div class="product-card">
 
       <img
-        src="http://localhost:8081${produto.imagem}"
+        src="http://localhost:8081/public/${produto.imagem}"
         alt="${produto.nome}"
         class="product-image"
-      />
+      />      
 
       <h3>${produto.nome}</h3>
 

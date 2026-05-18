@@ -3,7 +3,7 @@ import path from 'path';                   // cuida dos diretórios
 import crypto from 'crypto';               // cria um número hexadecimal para o nome do arquivo
 import fs from 'fs';    
 
-const baseUploadDir = path.resolve(process.cwd(),'uploads'); 
+const baseUploadDir = path.resolve(process.cwd(),'public/uploads'); 
 
 const verificaDir = (dir) =>{  
     if(!fs.existsSync(dir)){

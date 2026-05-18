@@ -17,11 +17,13 @@ const pedidoRepository = {
             const [rowsPedido] = await conn.execute(sqlPedido, valuesPedidos);
 
             //insert itens_pedidos
-            for (const element of itensPedido) {
+            for (const element of itensPedido) {//itensPedido é um array de objetos, cada objeto representa um item do pedido, com idProduto, quantidade e valorItem
                 const sqlItensPedidos = 'INSERT INTO itens_pedidos (id_pedido, id_produto, quantidade, valor_item) VALUES (?, ?, ?, ?)';
                 const valuesItensPedidos = [rowsPedido.insertId, element.idProduto, element.quantidade, element.valorItem];
                 await conn.execute(sqlItensPedidos, valuesItensPedidos);
             }
+            
+            
             
             conn.commit();
             return { rowsPedido, itensPedido };
