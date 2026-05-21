@@ -23,3 +23,13 @@ export async function registrarPedido(carrinho) {
         throw error;
     }
 }
+
+export async function buscarPedidos() {
+    try {
+        const resposta = await axios.get(`${API_URL}/pedidos`);
+        return resposta.data.resultado; // Conforme o padrão do seu selecionar: no controller
+    } catch (error) {
+        console.error("Erro ao buscar pedidos:", error);
+        return [];
+    }
+}

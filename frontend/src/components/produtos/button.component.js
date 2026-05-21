@@ -19,4 +19,6 @@ export function criarBotaoCarrinho(carrinho = false) {
     button.appendChild(icon);
 
     return button;
+
 }
+

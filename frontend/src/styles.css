@@ -1,7 +1,5 @@
 :root {
 
-  /* CORES */
-
   --primary: #6c4ab6;
   --primary-dark: #4d2f8c;
 
@@ -22,11 +20,9 @@
 
   --text-light: #6b7280;
 
-  --success: #16a34a;
+  --success: #21c75e;
 
-  --danger: #dc2626;
-
-  /* SOMBRAS */
+  --danger: #b42929;
 
   --shadow-sm:
     0 4px 12px rgba(0,0,0,0.04);
@@ -37,19 +33,14 @@
   --shadow-lg:
     0 20px 40px rgba(108, 74, 182, 0.15);
 
-  /* BORDAS */
-
   --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 26px;
 
-  /* TRANSIÇÃO */
+  --radius-md: 18px;
+
+  --radius-lg: 26px;
 
   --transition: 0.3s ease;
 }
-
-
-/* RESET */
 
 * {
 
@@ -59,22 +50,18 @@
   box-sizing: border-box;
 }
 
-
-/* BODY */
-
 body {
 
-  font-family: Inter, sans-serif;
+  font-family: Inter, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
   background: var(--bg);
 
   color: var(--text);
 
   min-height: 100vh;
+
+  line-height: 1.5;
 }
-
-
-/* HEADER */
 
 .header {
 
@@ -82,7 +69,7 @@ body {
 
   height: 90px;
 
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
 
   backdrop-filter: blur(10px);
 
@@ -92,7 +79,7 @@ body {
 
   justify-content: space-between;
 
-  padding: 0 60px;
+  padding: 0 70px;
 
   position: sticky;
 
@@ -104,12 +91,9 @@ body {
     0 2px 15px rgba(0,0,0,0.05);
 }
 
-
-/* LOGO */
-
 .header h1 {
 
-  font-size: 2.4rem;
+  font-size: 2.3rem;
 
   font-weight: 800;
 
@@ -117,9 +101,6 @@ body {
 
   letter-spacing: -1px;
 }
-
-
-/* NAV */
 
 nav {
 
@@ -130,9 +111,6 @@ nav {
   gap: 15px;
 }
 
-
-/* BOTÕES */
-
 nav button {
 
   border: none;
@@ -141,7 +119,7 @@ nav button {
 
   color: white;
 
-  height: 48px;
+  height: 50px;
 
   padding: 0 24px;
 
@@ -165,20 +143,14 @@ nav button:hover {
   transform: translateY(-2px);
 }
 
-
-/* APP */
-
 #app {
 
   max-width: 1450px;
 
   margin: auto;
 
-  padding: 15px 60px 50px;
+  padding: 25px 60px 50px;
 }
-
-
-/* LISTA DE PRODUTOS */
 
 .products-page {
 
@@ -191,20 +163,17 @@ nav button:hover {
 
   font-weight: 700;
 
-  margin-bottom: 28px;
+  margin-bottom: 35px;
 
   color: var(--primary-dark);
 
   line-height: 1.1;
 }
 
-.products-page h1{
+.products-page h1 {
 
-    color: var(--primary-dark);
-  }
-
-
-/* GRID */
+  color: var(--primary-dark);
+}
 
 .products-grid {
 
@@ -215,9 +184,6 @@ nav button:hover {
 
   gap: 32px;
 }
-
-
-/* CARD */
 
 .product-card {
 
@@ -236,21 +202,24 @@ nav button:hover {
   flex-direction: column;
 
   position: relative;
+
+  padding: 30px;
+}
+
+.product-card h3{
+  color: #4d2f8c;;
 }
 
 .product-card:hover {
 
-  transform: translateY(-8px);
+  transform: translateY(-10px);
 
   box-shadow: var(--shadow-lg);
 }
 
-
-/* IMAGEM */
-
 .product-image {
 
-   width: 100%;
+  width: 100%;
 
   height: 260px;
 
@@ -262,7 +231,7 @@ nav button:hover {
 
   transition: 0.3s;
 
-  padding: 10px;
+  padding: 15px;
 }
 
 .product-card:hover .product-image {
@@ -270,46 +239,36 @@ nav button:hover {
   transform: scale(1.03);
 }
 
-
-/* INFO */
-
 .product-info {
 
-  padding: 22px;
+  padding: 24px;
 }
-
-
-/* TÍTULO */
 
 .produto-titulo {
 
-  font-size: 1.4rem;
+  font-size: 1.35rem;
 
   font-weight: 700;
 
-  margin-bottom: 15px;
+  margin-bottom: 14px;
 
   color: var(--text);
+
+  line-height: 1.4;
 }
-
-
-/* PREÇO */
 
 .produto-preco {
 
-  font-size: 1.8rem;
+  font-size: 1.9rem;
 
   font-weight: 800;
 
   color: var(--primary);
 
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 
-  margin-top: 8px;
+  margin-top: 5px;
 }
-
-
-/* ESTOQUE */
 
 .produto-estoque {
 
@@ -319,11 +278,8 @@ nav button:hover {
 
   color: var(--text-light);
 
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
-
-
-/* BOTÃO */
 
 .btn-add-cart {
 
@@ -346,6 +302,8 @@ nav button:hover {
   cursor: pointer;
 
   transition: var(--transition);
+
+  margin-top: 15px;
 }
 
 .btn-add-cart:hover {
@@ -355,23 +313,18 @@ nav button:hover {
   transform: translateY(-2px);
 }
 
-
-/* RESPONSIVO */
-
 @media (max-width: 900px) {
 
   #app {
 
-    padding: 10px 25px 40px;
+    padding: 15px 25px 40px;
   }
 
   .products-page h2 {
 
     font-size: 2.2rem;
   }
-  
 }
-
 
 @media (max-width: 768px) {
 
@@ -402,4 +355,134 @@ nav button:hover {
 
     grid-template-columns: 1fr;
   }
+}
+
+
+.pedidos-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pedidos-container h1{
+  color: var(--primary-dark);
+}
+.pedidos-header {
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 20px;
+}
+
+/* Card individual de cada pedido no histórico */
+.pedido-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(108, 74, 182, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pedido-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--secondary);
+}
+
+/* Informações da Esquerda (ID e Data) */
+.pedido-info-main h5 {
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.pedido-data {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Informações da Direita (Status e Valor) */
+.pedido-status-valor {
+    text-align: right;
+}
+
+/* Badge de Status baseada no ENUM do banco */
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.status-aberto {
+    background-color: #fff7ed;
+    color: var(--accent);
+    border: 1px solid #fef3c7;
+}
+
+.status-finalizado {
+    background-color: #f0fdf4;
+    color: var(--success);
+    border: 1px solid #dcfce7;
+}
+
+.status-pendente {
+    background-color: #fef2f2;
+    color: var(--danger);
+    border: 1px solid #fee2e2;
+}
+
+/* Valor total do pedido */
+.pedido-valor-final {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    display: block;
+}
+
+/* --- Estilização do Resumo do Pedido (Página de Checkout) --- */
+
+.resumo-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--secondary);
+}
+
+.resumo-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.resumo-total {
+    border-top: 2px dashed var(--secondary);
+    margin-top: 20px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+
+.btn-finalizar-compra {
+    background: var(--success);
+    margin-top: 25px;
+}
+
+.btn-finalizar-compra:hover {
+    background: #19a34b; 
 }
