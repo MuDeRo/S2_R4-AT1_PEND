@@ -193,10 +193,15 @@ nav button:hover {
 
   margin-bottom: 28px;
 
-  color: var(--text);
+  color: var(--primary-dark);
 
   line-height: 1.1;
 }
+
+.products-page h1{
+
+    color: var(--primary-dark);
+  }
 
 
 /* GRID */
@@ -364,6 +369,7 @@ nav button:hover {
 
     font-size: 2.2rem;
   }
+  
 }
 
 
