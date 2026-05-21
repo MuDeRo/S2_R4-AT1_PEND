@@ -17,7 +17,6 @@ const pedidoController = {
             );
 
 
-
             const subTotalItens = ItensPedido.calcularTotal(itensPedido); //função para criar na model
             const pedido = { valorTotal: subTotalItens, status: statusPedido.ABERTO };
 
