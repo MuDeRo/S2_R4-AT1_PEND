@@ -2,7 +2,7 @@ import criarNavbar, { ativarMenu } from './components/layout/navbar.component.js
 import { produtosPage } from './pages/produtos/produtos.page.js';
 import carrinhoProdutosPage from './pages/produtos/carrinho.page.js'
 
-criarNavbar();
+
 produtosPage();
 
 const btnHome = document.querySelector('#btnHome');

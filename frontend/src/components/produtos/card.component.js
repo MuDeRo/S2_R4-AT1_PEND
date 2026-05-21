@@ -27,11 +27,31 @@ export default function criarCardProduto(produto) {
     preco.className = 'card-text';
     preco.innerText = `R$ ${produto.price}`;
 
+    const estoque = document.createElement('p');
+
+    estoque.className = 'produto-estoque';
+
+    if (produto.estoque > 0) {
+
+        estoque.classList.add('em-estoque');
+
+        estoque.innerText =
+            `Em estoque: ${produto.estoque}`;
+
+    } else {
+
+        estoque.classList.add('sem-estoque');
+
+        estoque.innerText =
+            'Produto indisponível';
+
+    }
+
     const botao = document.createElement('button');
     botao.className = 'btn btn-primary';
     botao.innerText = 'Adicionar ao carrinho';
 
-    cardBody.append(categoria, nome, preco, botao);
+    cardBody.append(categoria, nome, preco, estoque, botao);
 
     card.append(imageContainer, cardBody);
 
