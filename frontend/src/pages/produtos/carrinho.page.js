@@ -4,28 +4,31 @@ import { listarCarrinho, removerDoCarrinho } from "../../storage/produtos/carrin
 
 export default function carrinhoProdutosPage() {
   const app = document.querySelector("#app");
+  
+  
   app.innerHTML = `
-    <h1 class="titulo-pagina text-center">Carrinho</h1>
-    <div class="row mt-4" id="lista-carrinho"></div>
+    <div class="products-page">
+      <h1 class="titulo-pagina text-center">Carrinho</h1>
+      <div class="products-grid" id="lista-carrinho"></div>
+    </div>
   `;
 
   const row = document.querySelector("#lista-carrinho");
   const carrinho = listarCarrinho();
 
   carrinho.forEach(produto => {
-    const coluna = criarColunas();
     const card = criarCardProduto(produto);
     const button = card.querySelector("button");
 
-    button.className = "btn-remover w-100 justify-content-center";
+    
+    button.style.backgroundColor = "var(--danger)";
     button.innerText = "Remover do carrinho";
 
     button.addEventListener("click", () => {
       removerDoCarrinho(produto);
-      coluna.remove();
+      card.remove(); // Remove o card direto
     });
 
-    coluna.appendChild(card);
-    row.appendChild(coluna);
+    row.appendChild(card);
   });
 }

@@ -14,7 +14,6 @@ export class Produto {
         this.vinculoImagem = pVinculoImagem;
         this.estoque = pEstoque;
         this.id = pId;
-
     }
 
     get id() {
@@ -119,6 +118,13 @@ export class Produto {
     }
 
     static editar(dados, id) {
-        return new Produto(undefined, undefined, dados.valor, undefined, dados.estoque, id);
+        return new Produto(
+            dados.idCategoria,
+            dados.nome ?? dados.nomeProduto,
+            dados.valor,
+            dados.caminhoImagem ?? dados.caminhoImage ?? dados.vinculoImagem,
+            dados.estoque,
+            id
+        );
     }
 }

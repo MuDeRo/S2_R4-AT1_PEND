@@ -10,7 +10,7 @@ const produtoController = {
             const idCategoria = Number(req.body.idCategoria); // converte o id da categoria recebido na requisição para número
             const valor = Number(req.body.valor); // converte o preço recebido na requisição para número
             const estoque = Number(req.body.estoque); // converte o estoque recebido na requisição para número
-            const caminhoImagem = `/uploads/image/${req.file.filename}`;
+            const caminhoImagem = `/uploads/images/${req.file.filename}`;
 
             const produto = Produto.criar({ idCategoria, nome, valor, estoque, caminhoImagem }); // utiliza o método estático criar da classe Produto para criar um objeto da classe Produto a partir dos dados recebidos na requisição
 
@@ -33,16 +33,34 @@ const produtoController = {
     atualizar: async (req, res) => {
         try {
             const id = Number(req.params.id);
-            const { valor, estoque } = req.body;
+            let { valor, estoque } = req.body;
+            const caminhoImagem = `/uploads/images/${req.file.filename}`
 
-            if (isNaN(id) || valor === undefined || estoque === undefined) {
+            if (isNaN(id) || valor === undefined || estoque === undefined || caminhoImagem === undefined) {
                 return res.status(400).json({
-                    message: 'ID, valor e estoque são obrigatórios'
+                    message: 'ID, valor, estoque e caminho da imagem são obrigatórios'
                 });
             }
 
-            const produto = Produto.editar({ valor: Number(valor), estoque: Number(estoque) }, id);
+            const produtoExistente = await produtoRepository.selecionarPorId(id);
 
+            if (produtoExistente[0] == undefined) {
+                return res.status(404).json({
+                    message: 'Produto não encontrado'
+                });
+            }
+
+            valor = Number(valor);
+            estoque = Number(estoque);
+            
+            const produto = Produto.editar({
+                idCategoria: produtoExistente[0].id_categoria,
+                nomeProduto: produtoExistente[0].nome,
+                valor: valor ?? produtoExistente[0].preco,
+                estoque: estoque ?? produtoExistente[0].estoque, 
+                caminhoImagem: caminhoImagem ?? produtoExistente[0].imagem 
+            }, id);
+            
             const resultado = await produtoRepository.editar(produto);
             return res.status(200).json({ resultado });
 

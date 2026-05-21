@@ -34,7 +34,7 @@ function renderProdutos(produtos) {
     <div class="product-card">
 
       <img
-        src="http://localhost:8081/public/${produto.imagem}"
+        src="http://localhost:8081${produto.imagem}"
         alt="${produto.nome}"
         class="product-image"
       />      
@@ -43,6 +43,10 @@ function renderProdutos(produtos) {
 
       <p class="price">
         R$ ${Number(produto.preco).toFixed(2)}
+      </p>
+
+      <p class="estoque">
+        Estoque: ${Number(produto.estoque)}
       </p>
 
       <button

@@ -11,8 +11,8 @@ const produtoRepository = {
     },
 
     editar: async (produto) => {
-        const sql = 'UPDATE produtos SET preco = ?, estoque = ? WHERE id = ?';
-        const values = [produto.valor, produto.estoque, produto.id];
+        const sql = 'UPDATE produtos SET preco = ?, estoque = ?, imagem = ? WHERE id = ?';
+        const values = [produto.valor, produto.estoque, produto.vinculoImagem, produto.id];
         const [rows] = await connection.execute(sql, values);
         return rows;
     },
